@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Originals | Your Premium Original Store</title>
+
+<style>
+/* ===== Branding & Layout ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #F2F2F2;
+  color: #0B2A8A;
+}
+
+header {
+  background: #0B2A8A;
+  text-align: center;
+  padding: 25px 20px;
+}
+
+header img {
+  width: 180px;
+}
+
+.hero {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.hero h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  background: #C58A4A;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.btn:hover {
+  background: #a36f3c;
+}
+
+.section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.products {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  width: 320px;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  border-top: 4px solid #C58A4A;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.price {
+  color: #1236C4;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.cart {
+  position: fixed;
+  right: 20px;
+  top: 80px;
+  background: #C58A4A;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.cart-count {
+  background: white;
+  color: #C58A4A;
+  border-radius: 50%;
+  padding: 2px 8px;
+  margin-left: 6px;
+  font-weight: bold;
+}
+
+.cart-modal {
+  position: fixed;
+  right: 20px;
+  top: 120px;
+  background: white;
+  border: 2px solid #C58A4A;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  display: none;
+  z-index: 1000;
+}
+
+.cart-modal h3 {
+  margin-top: 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+/* Customer Reviews & Footer */
+.review {
+  background: white;
+  max-width: 400px;
+  margin: 10px auto;
+  padding: 15px;
+  border-left: 4px solid #C58A4A;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+footer {
+  background: #0B2A8A;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+footer a {
+  color: #C58A4A;
+  text-decoration: none;
+}
+
+@media(min-width:768px){
+  .products {
+    flex-direction: row;
+    justify-content: center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo.png" alt="Apex Originals Logo">
+</header>
+
+<section class="hero">
+  <h1>100% Original Products in Juba</h1>
+  <p>No fake, no copy — only verified genuine products.</p>
+</section>
+
+<div class="cart" onclick="toggleCart()">Cart <span class="cart-count" id="cart-count">0</span></div>
+<div class="cart-modal" id="cart-modal">
+  <h3>Your Cart</h3>
+  <div id="cart-items"></div>
+  <p>Total: SSP <span id="cart-total">0</span></p>
+  <a class="btn" id="checkout-btn" href="#">Checkout</a>
+</div>
+
+<section class="section">
+  <h2>Featured Products</h2>
+  <div class="products">
+    <div class="card">
+      <img src="product1.jpg">
+      <h3>Original Smartphone</h3>
+      <p class="price">450,000 SSP</p>
+      <a class="btn" onclick="addToCart('Original Smartphone', 450000)">Add to Cart</a>
+    </div>
+
+    <div class="card">
+      <img src="product2.jpg">
+      <h3>Authentic Headphones</h3>
+      <p class="price">120,000 SSP</p>
+      <a class="btn" onclick="addToCart('Authentic Headphones', 120000)">Add to Cart</a>
+    </div>
+
+    <div class="card">
+      <img src="product3.jpg">
+      <h3>Original Smartwatch</h3>
+      <p class="price">200,000 SSP</p>
+      <a class="btn" onclick="addToCart('Original Smartwatch', 200000)">Add to Cart</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>About Apex Originals</h2>
+  <p>We sell 100% authentic products with warranty and verified serial numbers. Trusted by hundreds of customers in Juba.</p>
+</section>
+
+<section class="section">
+  <h2>Customer Reviews</h2>
+  <div class="review">⭐⭐⭐⭐⭐ "Finally a trusted seller for original products!"</div>
+  <div class="review">⭐⭐⭐⭐⭐ "Fast delivery, authentic products. Highly recommended."</div>
+</section>
+
+<footer>
+  <p>© 2026 Apex Originals | Serving Juba</p>
+  <p>
+    <a href="#">Facebook</a> |
+    <a href="#">Instagram</a> |
+    <a href="#">TikTok</a>
+  </p>
+</footer>
+
+<script>
+/* ===== Cart Functionality ===== */
+let cart = [];
+function addToCart(name, price){
+  cart.push({name, price});
+  updateCart();
+  alert(name + ' added to cart!');
+}
+
+function updateCart(){
+  document.getElementById('cart-count').innerText = cart.length;
+  let cartItems = document.getElementById('cart-items');
+  cartItems.innerHTML = '';
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    cartItems.innerHTML += '<div class="cart-item">'+item.name+' - SSP '+item.price+' <a href="#" onclick="removeItem('+index+')">Remove</a></div>';
+  });
+  document.getElementById('cart-total').innerText = total;
+  document.getElementById('checkout-btn').href = "https://wa.me/211XXXXXXXXX?text=" + encodeURIComponent(generateWhatsAppMessage());
+}
+
+function removeItem(index){
+  cart.splice(index, 1);
+  updateCart();
+}
+
+function toggleCart(){
+  let modal = document.getElementById('cart-modal');
+  modal.style.display = (modal.style.display === 'block') ? 'none' : 'block';
+}
+
+function generateWhatsAppMessage(){
+  if(cart.length === 0) return 'Hello, I want to order some products.';
+  let msg = 'Hello, I want to order these products:\n';
+  cart.forEach(item => {
+    msg += item.name + ' - SSP ' + item.price + '\n';
+  });
+  msg += 'Total: SSP ' + cart.reduce((sum, item)=>sum+item.price,0);
+  return msg;
+}
+</script>
+
+</body>
+</html>
